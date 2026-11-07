@@ -2,14 +2,14 @@
 **/target/
 
 # Eclipse
-.metadata/
-.settings/
-.classpath
-.project
+**/.metadata/
+**/.settings/
+**/.classpath
+**/.project
 
-# IntelliJ, ha valaha megnyitnád ott
-.idea/
-*.iml
+# IntelliJ, ha valaha megnyitnád
+**/.idea/
+**/*.iml
 
 # OS
 .DS_Store
