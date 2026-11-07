@@ -1,0 +1,20 @@
+# Maven build
+**/target/
+
+# Eclipse
+.metadata/
+.settings/
+.classpath
+.project
+
+# IntelliJ, ha valaha megnyitnád ott
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+application-local.properties
