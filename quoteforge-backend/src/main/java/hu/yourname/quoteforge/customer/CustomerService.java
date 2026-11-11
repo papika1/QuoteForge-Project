@@ -25,4 +25,18 @@ public class CustomerService {
         return customerRepository.findById(id)
         		.orElseThrow(() -> new CustomerNotFoundException(id));
     }
+    
+    public Customer update(Long id, Customer updatedCustomer) {
+        Customer existingCustomer = findById(id);
+
+        existingCustomer.setName(updatedCustomer.getName());
+        existingCustomer.setEmail(updatedCustomer.getEmail());
+
+        return customerRepository.save(existingCustomer);
+    }
+    
+    public void delete(Long id) {
+        Customer customer = findById(id);
+        customerRepository.delete(customer);
+    }
 }
