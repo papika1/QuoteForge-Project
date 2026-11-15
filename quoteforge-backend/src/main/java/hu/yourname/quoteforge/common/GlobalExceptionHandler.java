@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import hu.yourname.quoteforge.customer.CustomerNotFoundException;
+import hu.yourname.quoteforge.project.ProjectNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -13,6 +14,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<ApiError> handleCustomerNotFound(
             CustomerNotFoundException exception) {
+
+        ApiError error = new ApiError(
+                404,
+                "Not Found",
+                exception.getMessage()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(error);
+    }
+    
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<ApiError> handleProjectNotFound(
+            ProjectNotFoundException exception) {
 
         ApiError error = new ApiError(
                 404,

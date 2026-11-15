@@ -41,6 +41,10 @@ public class Project {
     public String getDescription() {
         return description;
     }
+    
+    public Customer getCustomer() {
+        return customer;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -48,5 +52,9 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
