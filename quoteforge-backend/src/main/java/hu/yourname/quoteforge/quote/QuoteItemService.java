@@ -1,5 +1,6 @@
 package hu.yourname.quoteforge.quote;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,14 @@ public class QuoteItemService {
 
         this.quoteItemRepository = quoteItemRepository;
         this.quoteRepository = quoteRepository;
+    }
+    
+    public BigDecimal calculateQuoteTotal(Long quoteId) {
+        List<QuoteItem> items = quoteItemRepository.findByQuoteId(quoteId);
+
+        return items.stream()
+                .map(QuoteItem::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public QuoteItem create(Long quoteId, QuoteItem quoteItem) {

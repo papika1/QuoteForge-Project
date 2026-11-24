@@ -1,5 +1,6 @@
 package hu.yourname.quoteforge.quote;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,11 @@ public class QuoteController {
         this.quoteService = quoteService;
     }
 
+    @GetMapping("/{id}/total")
+    public BigDecimal getTotal(@PathVariable Long id) {
+        return quoteService.calculateTotal(id);
+    }
+    
     @GetMapping
     public List<Quote> findAll() {
         return quoteService.findAll();
