@@ -25,6 +25,32 @@ public class QuoteService {
         this.projectService = projectService;
 		this.quoteItemService = quoteItemService;
     }
+    
+    public QuoteSummary getSummary(Long quoteId) {
+
+        BigDecimal net = calculateNetTotal(quoteId);
+        BigDecimal vat = calculateVat(quoteId);
+        BigDecimal gross = calculateGrossTotal(quoteId);
+
+        return new QuoteSummary(net, vat, gross);
+    }
+    
+    public BigDecimal calculateNetTotal(Long quoteId) {
+        return quoteItemService.calculateQuoteTotal(quoteId);
+    }
+    
+    public BigDecimal calculateVat(Long quoteId) {
+        BigDecimal net = calculateNetTotal(quoteId);
+
+        return net.multiply(new BigDecimal("0.27"));
+    }
+    
+    public BigDecimal calculateGrossTotal(Long quoteId) {
+        BigDecimal net = calculateNetTotal(quoteId);
+        BigDecimal vat = calculateVat(quoteId);
+
+        return net.add(vat);
+    }
 
     public BigDecimal calculateTotal(Long quoteId) {
         return quoteItemService.calculateQuoteTotal(quoteId);

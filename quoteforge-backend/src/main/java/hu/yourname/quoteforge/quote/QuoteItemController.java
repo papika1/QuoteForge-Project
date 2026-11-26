@@ -28,9 +28,9 @@ public class QuoteItemController {
     @PostMapping("/quote/{quoteId}")
     public QuoteItem create(
             @PathVariable Long quoteId,
-            @RequestBody QuoteItem quoteItem) {
+            @RequestBody QuoteItemCreateRequest request) {
 
-        return quoteItemService.create(quoteId, quoteItem);
+        return quoteItemService.create(quoteId, request);
     }
 
     @GetMapping("/quote/{quoteId}")

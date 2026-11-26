@@ -28,7 +28,7 @@ public class QuoteItemService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public QuoteItem create(Long quoteId, QuoteItem quoteItem) {
+    public QuoteItem create(Long quoteId, QuoteItemCreateRequest request) {
 
         Quote quote = quoteRepository.findById(quoteId)
                 .orElseThrow(() -> new RuntimeException("Quote not found"));
@@ -36,20 +36,25 @@ public class QuoteItemService {
         Optional<QuoteItem> existingItem =
                 quoteItemRepository.findByQuoteIdAndDescriptionAndUnitPrice(
                         quoteId,
-                        quoteItem.getDescription(),
-                        quoteItem.getUnitPrice()
+                        request.getDescription(),
+                        request.getUnitPrice()
                 );
 
         if (existingItem.isPresent()) {
             QuoteItem item = existingItem.get();
 
             item.setQuantity(
-                    item.getQuantity().add(quoteItem.getQuantity())
+                    item.getQuantity().add(request.getQuantity())
             );
 
             return quoteItemRepository.save(item);
         }
 
+        QuoteItem quoteItem = new QuoteItem();
+
+        quoteItem.setDescription(request.getDescription());
+        quoteItem.setQuantity(request.getQuantity());
+        quoteItem.setUnitPrice(request.getUnitPrice());
         quoteItem.setQuote(quote);
 
         return quoteItemRepository.save(quoteItem);

@@ -19,6 +19,11 @@ public class QuoteController {
     public QuoteController(QuoteService quoteService) {
         this.quoteService = quoteService;
     }
+    
+    @GetMapping("/{id}/summary")
+    public QuoteSummary getSummary(@PathVariable Long id) {
+        return quoteService.getSummary(id);
+    }
 
     @GetMapping("/{id}/total")
     public BigDecimal getTotal(@PathVariable Long id) {
